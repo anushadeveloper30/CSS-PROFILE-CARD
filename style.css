@@ -6,37 +6,121 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #0f0f1c;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
-    overflow-x: hidden;
+    overflow: hidden;
+    position: relative;
+    z-index: 0;
 }
 
-/* Enhanced animated background particles */
-body::before {
-    content: '';
+.blobs {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image:
-        radial-gradient(circle at 10% 90%, rgba(120, 119, 198, 0.4) 0%, transparent 40%),
-        radial-gradient(circle at 90% 10%, rgba(255, 255, 255, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 50% 50%, rgba(120, 119, 198, 0.25) 0%, transparent 40%);
-    animation: float 25s ease-in-out infinite;
-    pointer-events: none;
-    z-index: -1;
+    overflow: hidden;
+    z-index: -3;
 }
 
-@keyframes float {
-    0%, 100% { transform: translate(0, 0) rotate(0deg); }
-    25% { transform: translate(20px, -20px) rotate(90deg); }
-    50% { transform: translate(-20px, 20px) rotate(180deg); }
-    75% { transform: translate(20px, 20px) rotate(270deg); }
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.35;
+    filter: blur(150px);
+    animation: moveBlob 50s ease-in-out infinite alternate;
+}
+
+.blob:nth-child(1) {
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, #ff6ec7, #ff9671);
+    top: 5%;
+    left: 10%;
+    animation-duration: 55s;
+}
+
+.blob:nth-child(2) {
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, #667eea, #764ba2);
+    top: 60%;
+    left: 50%;
+    animation-duration: 60s;
+}
+
+.blob:nth-child(3) {
+    width: 900px;
+    height: 900px;
+    background: radial-gradient(circle, #a770ef, #cf8bf3);
+    top: 20%;
+    left: 70%;
+    animation-duration: 70s;
+}
+
+@keyframes moveBlob {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(-150px, 200px) scale(1.2);
+    }
+
+    100% {
+        transform: translate(120px, -120px) scale(0.95);
+    }
+}
+
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 100px 100px;
+    animation: moveParticles 180s linear infinite;
+    z-index: -2;
+    pointer-events: none;
+    opacity: 0.25;
+}
+
+@keyframes moveParticles {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(-500px, -800px);
+    }
+}
+
+.shimmer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 150%;
+    height: 150%;
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 50%, rgba(255, 255, 255, 0.05) 100%);
+    animation: shimmerMove 90s linear infinite;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.15;
+}
+
+@keyframes shimmerMove {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(-800px, -600px);
+    }
 }
 
 .container {
@@ -64,8 +148,15 @@ body::before {
 }
 
 @keyframes slideUp {
-    from { opacity: 0; transform: translateY(60px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(60px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .profile-card:hover {
@@ -86,8 +177,13 @@ body::before {
 }
 
 @keyframes shimmer {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
 }
 
 .status-badge {
@@ -112,8 +208,15 @@ body::before {
 }
 
 @keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.06); }
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.06);
+    }
 }
 
 .profile-image-container {
@@ -125,8 +228,15 @@ body::before {
 }
 
 @keyframes fadeInScale {
-    from { opacity: 0; transform: scale(0.7); }
-    to { opacity: 1; transform: scale(1); }
+    from {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .profile-image {
@@ -185,8 +295,15 @@ body::before {
 }
 
 @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(25px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .profile-bio {
@@ -240,11 +357,25 @@ body::before {
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
 }
 
-.social-link.linkedin { background: linear-gradient(135deg, #0077b5, #004c73); }
-.social-link.github { background: linear-gradient(135deg, #2b3137, #1a1f23); }
-.social-link.dribbble { background: linear-gradient(135deg, #ea4c89, #c44173); }
-.social-link.email { background: linear-gradient(135deg, #ef4444, #b91c1c); }
-.social-link.instagram { background: linear-gradient(135deg, #f77737, #833ab4, #c13584); }
+.social-link.linkedin {
+    background: linear-gradient(135deg, #0077b5, #004c73);
+}
+
+.social-link.github {
+    background: linear-gradient(135deg, #2b3137, #1a1f23);
+}
+
+.social-link.dribbble {
+    background: linear-gradient(135deg, #ea4c89, #c44173);
+}
+
+.social-link.email {
+    background: linear-gradient(135deg, #ef4444, #b91c1c);
+}
+
+.social-link.instagram {
+    background: linear-gradient(135deg, #f77737, #833ab4, #c13584);
+}
 
 .stats-section {
     margin-top: 30px;
@@ -287,11 +418,11 @@ body::before {
     margin-top: 5px;
 }
 
-/* Enhanced responsive design */
 @media (max-width: 1024px) {
     .container {
         gap: 25px;
     }
+
     .profile-card {
         max-width: 400px;
     }
@@ -301,25 +432,31 @@ body::before {
     .container {
         gap: 20px;
     }
+
     .profile-card {
         padding: 30px 25px;
         max-width: 350px;
     }
+
     .profile-name {
         font-size: 26px;
     }
+
     .profile-image-container {
         width: 120px;
         height: 120px;
     }
+
     .social-links {
         gap: 12px;
     }
+
     .social-link {
         width: 45px;
         height: 45px;
         font-size: 18px;
     }
+
     .stats-grid {
         gap: 12px;
     }
@@ -329,34 +466,43 @@ body::before {
     body {
         padding: 10px;
     }
+
     .profile-card {
         padding: 20px 15px;
         max-width: 100%;
     }
+
     .profile-name {
         font-size: 22px;
     }
+
     .profile-image-container {
         width: 100px;
         height: 100px;
     }
+
     .profile-bio {
         font-size: 14px;
     }
+
     .social-links {
         gap: 10px;
     }
+
     .social-link {
         width: 40px;
         height: 40px;
         font-size: 16px;
     }
+
     .stats-grid {
         gap: 8px;
     }
+
     .stat-number {
         font-size: 18px;
     }
+
     .stat-label {
         font-size: 11px;
     }
